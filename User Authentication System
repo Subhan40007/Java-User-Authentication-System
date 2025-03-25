@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class User {
+    private static final String USERNAME = "Subhan";
+    private static final String PASSWORD = "admin123";
+    private static final int MAX_ATTEMPTS = 3;
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        if (authenticateUser(input)) {
+            System.out.println("Giriş uğurludur!");
+        } else {
+            System.out.println("Çox cəhd etdiniz. Hesabınız bloklandı!");
+        }
+        input.close();
+    }
+
+    private static boolean authenticateUser(Scanner input) {
+        int count = 1;
+
+        while (count <= MAX_ATTEMPTS) {
+            System.out.print("İstifadəçi adınızı daxil edin: ");
+            String user = input.nextLine();
+            System.out.print("Şifrənizi daxil edin: ");
+            String pass = input.nextLine();
+
+            if (USERNAME.equals(user) && PASSWORD.equals(pass)) {
+                return true;
+            } else {
+                System.out.println("İstifadəçi adı və ya şifrə yanlışdır! " + (MAX_ATTEMPTS - count) + " cəhdiniz qalıb.");
+            }
+            count++;
+        }
+        return false;
+    }
+}
